@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        stage('Deploy Updated Container') {
+        stage('Deploy Container') {
             steps {
                 sh """
                 docker run -d \
@@ -42,11 +42,11 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline completed successfully!"
+            echo 'Pipeline executed successfully!'
         }
 
         failure {
-            echo "Pipeline failed."
+            echo 'Pipeline failed.'
         }
     }
 }
