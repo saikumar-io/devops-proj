@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Task Manager | Modern DevOps Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <span>Nexus</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-filter="all">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-filter="pending">
+                    <i data-lucide="clock"></i>
+                    <span>Pending</span>
+                </a>
+                <a href="#" class="nav-item" data-filter="completed">
+                    <i data-lucide="check-circle"></i>
+                    <span>Completed</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="theme-toggle" id="themeToggle">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                    <span>Toggle Theme</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="header-search">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="searchInput" placeholder="Search tasks...">
+                </div>
+                <div class="user-profile">
+                    <div class="stats-badge">
+                        <span id="pendingCount">0</span> Pending
+                    </div>
+                    <div class="avatar">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User Avatar">
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <section class="welcome-section">
+                    <h1>System Dashboard</h1>
+                    <p>Manage your DevOps pipeline tasks with ease.</p>
+                </section>
+
+                <!-- Stats Cards -->
+                <section class="stats-grid">
+                    <div class="stat-card glass">
+                        <div class="stat-icon blue">
+                            <i data-lucide="list"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalTasks">0</h3>
+                            <p>Total Tasks</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-icon green">
+                            <i data-lucide="check-circle-2"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="completedTasks">0</h3>
+                            <p>Completed</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="stat-icon orange">
+                            <i data-lucide="activity"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="completionRate">0%</h3>
+                            <p>Success Rate</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Task Actions -->
+                <section class="task-actions">
+                    <div class="input-glass">
+                        <input type="text" id="taskInput" placeholder="Enter a new DevOps task...">
+                        <button id="addTaskBtn" class="btn-primary">
+                            <i data-lucide="plus"></i>
+                            <span>Add Task</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Task List -->
+                <section class="task-container">
+                    <div class="section-header">
+                        <h2>Active Tasks</h2>
+                        <div class="filter-pills">
+                            <button class="pill active" data-status="all">All</button>
+                            <button class="pill" data-status="pending">Pending</button>
+                            <button class="pill" data-status="completed">Completed</button>
+                        </div>
+                    </div>
+                    
+                    <div id="taskList" class="task-list">
+                        <!-- Tasks will be injected here -->
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Optimizing pipeline...</p>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state hidden">
+                        <div class="empty-illustration">
+                            <i data-lucide="clipboard-list"></i>
+                        </div>
+                        <h3>No tasks found</h3>
+                        <p>Your pipeline is clean. Start by adding a new task!</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="deleteModal" class="modal-overlay hidden">
+        <div class="modal glass">
+            <div class="modal-icon warning">
+                <i data-lucide="alert-triangle"></i>
+            </div>
+            <h3>Delete Task?</h3>
+            <p>This action cannot be undone. Are you sure you want to remove this task from the pipeline?</p>
+            <div class="modal-actions">
+                <button id="cancelDelete" class="btn-secondary">Cancel</button>
+                <button id="confirmDelete" class="btn-danger">Delete Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
