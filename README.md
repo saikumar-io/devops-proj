@@ -12,6 +12,7 @@ Nexus is a modern, high-performance Task Manager application built to demonstrat
 
 ---
 
+
 ## 🛠️ Tech Stack
 
 - **Backend:** Python (Flask), SQLite, SQLAlchemy
